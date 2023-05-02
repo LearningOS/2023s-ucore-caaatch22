@@ -34,6 +34,7 @@ void proc_init(void)
 		/*
 		* LAB1: you may need to initialize your new fields of proc here
 		*/
+		p->ti.status = Uninit;
 	}
 	idle.kstack = (uint64)boot_stack_top;
 	idle.pid = 0;
@@ -86,6 +87,7 @@ void scheduler(void)
 				*/
 				p->state = RUNNING;
 				current_proc = p;
+				p->ti.status = Running;
 				swtch(&idle.context, &p->context);
 			}
 		}
