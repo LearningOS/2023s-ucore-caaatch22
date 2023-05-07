@@ -1,6 +1,7 @@
 #include "loader.h"
 #include "defs.h"
 #include "trap.h"
+#include "timer.h"
 
 static int app_num;
 static uint64 *app_info_ptr;
@@ -72,6 +73,12 @@ int run_all_app()
 		/*
 		* LAB1: you may need to initialize your new fields of proc here
 		*/
+		p->ti.status = UnInit;
+		p->ti.time = get_time();
+		for (int j = 0; j < MAX_SYSCALL_NUM; j++) {
+			/* code */
+			p->ti.syscall_times[j] = 0;
+		}
 	}
 	return 0;
 }
