@@ -58,8 +58,8 @@ enum LOG_COLOR {
 #define errorf(fmt, ...)                                                       \
 	do {                                                                   \
 		int tid = threadid();                                          \
-		printf("\x1b[%dm[%s %d]" fmt "\x1b[0m\n", RED, "ERROR", tid,   \
-		       ##__VA_ARGS__);                                         \
+		printf("\x1b[%dm[%s %d] %s:%d: " fmt "\x1b[0m\n", RED, "ERROR", tid,   \
+		      __FILE__, __LINE__, ##__VA_ARGS__);                                         \
 	} while (0)
 #else
 #define errorf(fmt, ...) dummy(0, ##__VA_ARGS__)
@@ -102,8 +102,8 @@ enum LOG_COLOR {
 #define tracef(fmt, ...)                                                       \
 	do {                                                                   \
 		int tid = threadid();                                          \
-		printf("\x1b[%dm[%s %d]" fmt "\x1b[0m\n", GRAY, "TRACE", tid,  \
-		       ##__VA_ARGS__);                                         \
+		printf("\x1b[%dm[%s %d] %s:%d: " fmt "\x1b[0m\n", GRAY, "TRACE", tid,  \
+		       __FILE__, __LINE__, ##__VA_ARGS__);                                         \
 	} while (0)
 #else
 #define tracef(fmt, ...) dummy(0, ##__VA_ARGS__)
