@@ -25,5 +25,5 @@ void set_next_timer()
 
 uint64 get_time()
 {
-	return get_cycle() / (CPU_FREQ / 1000);
+	return get_cycle() * 1000 / CPU_FREQ;
 }

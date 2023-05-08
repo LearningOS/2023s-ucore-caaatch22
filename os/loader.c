@@ -1,7 +1,6 @@
 #include "loader.h"
 #include "defs.h"
 #include "trap.h"
-#include "timer.h"
 
 static int app_num;
 static uint64 *app_info_ptr;
@@ -58,7 +57,7 @@ pagetable_t bin_loader(uint64 start, uint64 end, struct proc *p)
 	p->trapframe->sp = p->ustack + USTACK_SIZE;
 	p->max_page = PGROUNDUP(p->ustack + USTACK_SIZE - 1) / PAGE_SIZE;
 	p->program_brk = p->ustack + USTACK_SIZE;
-        p->heap_bottom = p->ustack + USTACK_SIZE;
+	p->heap_bottom = p->ustack + USTACK_SIZE;
 	return pg;
 }
 
@@ -73,12 +72,8 @@ int run_all_app()
 		/*
 		* LAB1: you may need to initialize your new fields of proc here
 		*/
-		p->ti.status = UnInit;
-		p->ti.time = get_time();
-		for (int j = 0; j < MAX_SYSCALL_NUM; j++) {
-			/* code */
-			p->ti.syscall_times[j] = 0;
-		}
+		p->start_time = 0;
+		memset(p->syscall_times, 0, MAX_SYSCALL_NUM * sizeof(uint));
 	}
 	return 0;
 }
