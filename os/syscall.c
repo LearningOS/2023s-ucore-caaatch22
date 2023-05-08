@@ -94,11 +94,10 @@ uint64 sys_mmap(void* start, unsigned long long len, int port, int flag, int fd)
 	if(len > MAXVA) return -1;
 	if(!PGALIGNED((uint64)start)) return -1;
 
-	if((port & (~7) || port == 0)) return -1;
-	xperm |= port;
-	// if((port&1)>0)xperm |=PTE_R;
-	// if((port&2)>0)xperm |=PTE_W;
-	// if((port&4)>0)xperm |=PTE_X;
+	if((port & (~7)) || port == 0) return -1;
+	if(port & 1) xperm |=PTE_R;
+	if(port & 2) xperm |=PTE_W;
+	if(port & 4) xperm |=PTE_X;
 
 	left_size = len;
 	while(left_size > 0)

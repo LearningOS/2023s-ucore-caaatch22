@@ -69,8 +69,8 @@ enum LOG_COLOR {
 #define warnf(fmt, ...)                                                        \
 	do {                                                                   \
 		int tid = threadid();                                          \
-		printf("\x1b[%dm[%s %d]" fmt "\x1b[0m\n", YELLOW, "WARN", tid, \
-		       ##__VA_ARGS__);                                         \
+		printf("\x1b[%dm[%s %d] %s:%d: " fmt "\x1b[0m\n", YELLOW, "WARN", tid, \
+		       __FILE__, __LINE__, ##__VA_ARGS__);                                         \
 	} while (0)
 #else
 #define warnf(fmt, ...) dummy(0, ##__VA_ARGS__)
@@ -80,8 +80,8 @@ enum LOG_COLOR {
 #define infof(fmt, ...)                                                        \
 	do {                                                                   \
 		int tid = threadid();                                          \
-		printf("\x1b[%dm[%s %d]" fmt "\x1b[0m\n", BLUE, "INFO", tid,   \
-		       ##__VA_ARGS__);                                         \
+		printf("\x1b[%dm[%s %d] %s:%d: " fmt "\x1b[0m\n", BLUE, "INFO", tid,   \
+		       __FILE__, __LINE__, ##__VA_ARGS__);                                         \
 	} while (0)
 #else
 #define infof(fmt, ...) dummy(0, ##__VA_ARGS__)
@@ -91,8 +91,8 @@ enum LOG_COLOR {
 #define debugf(fmt, ...)                                                       \
 	do {                                                                   \
 		int tid = threadid();                                          \
-		printf("\x1b[%dm[%s %d]" fmt "\x1b[0m\n", GREEN, "DEBUG", tid, \
-		       ##__VA_ARGS__);                                         \
+		printf("\x1b[%dm[%s %d] %s:%d: " fmt "\x1b[0m\n", GREEN, "DEBUG", tid, \
+		       __FILE__, __LINE__, ##__VA_ARGS__);                                         \
 	} while (0)
 #else
 #define debugf(fmt, ...) dummy(0, ##__VA_ARGS__)
